@@ -2,7 +2,13 @@ import Vuex from 'vuex'
 
 const store = () => new Vuex.Store({
   state: {
-    counter: 0
+    todos: [
+    ]
+  },
+  mutations: {
+    init: (state, todos) => {
+      state.todos = todos
+    }
   }
 })
 
