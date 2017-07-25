@@ -1,9 +1,10 @@
 <template>
   <div>
-    <nuxt-link to="/">Home</nuxt-link>
     <article class="pa3 pa5-ns">
       <ul class="list pl0 ml0 center mw6 ba b--light-silver br2">
-        <li v-for="todo of todos" class="ph3 pv3 bb b--light-silver">{{todo.task}}</li>
+        <li v-for="todo of todos" class="flex items-center ph3 pv3 bb b--light-silver">
+          <span class="flex-auto">{{todo.id}} {{todo.task}}</span>
+        </li>
       </ul>
     </article>
   </div>
@@ -14,11 +15,10 @@
   import {init} from './shared'
 
   export default {
-
     fetch: init,
     computed: {
       ...mapState({
-        todos: (state) => state.todos
+        todos: (state) => state.todos.filter(t => t.complete)
       })
     }
   }
