@@ -13,12 +13,27 @@
         </li>
       </ul>
     </article>
+    <section class="pa2">
+      <h2>Lazy loading...</h2>
+      <button @click="show = true">Lazy load</button>
+      <div v-if="show">
+        <Async></Async>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from 'vuex'
   import {init} from './shared'
+
+  const Async = resolve => {
+    console.log('loading...')
+    setTimeout(() => {
+      require(['~components/async.vue'], resolve)
+      console.log('loaded')
+    }, 1000)
+  }
 
   export default {
     fetch: init,
@@ -27,9 +42,13 @@
         todos: (state) => state.todos
       })
     },
+    components: {
+      Async
+    },
     data () {
       return {
-        task: 'Some data'
+        task: 'Some data',
+        show: false
       }
     },
     methods: {
